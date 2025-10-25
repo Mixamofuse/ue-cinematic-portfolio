@@ -14,9 +14,6 @@
   <script>
     tailwind.config = { theme: { extend: { fontFamily: { sans: ["Inter","system-ui","sans-serif"] }, colors: { bg: "#0b0d10", card: "#12161b", acc: "#7dd3fc" } } } }
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
     .line-clamp-2 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
     .glass { backdrop-filter: blur(8px); background: rgba(255,255,255,0.03); }
@@ -111,197 +108,118 @@
     © <span id="year"></span> Thuan Nguyen. Built with Unreal love.
   </footer>
 
+  <div id="err" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2 bg-red-600/80 text-white px-4 py-2 rounded-lg text-sm"></div>
+
   <script>
-  // ===== DATA =====
-  const WORKS = [
-    { id: "VF8g7iAHD9A", title: "Fan-Made PREDATOR Cinematic: IT ALL ENDS | Unreal Engine 5.6 | MetaHuman", video: "https://www.youtube.com/embed/VF8g7iAHD9A", description: "UE5.6 · MetaHuman · BigMediumSmall assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.6","MetaHuman","BMS","DaVinci","Premiere","Artlist"] },
-    { id: "3416z2WutQE", title: "Hidden Alley – Cinematic Short Film in Unreal Engine 5.6", video: "https://www.youtube.com/embed/3416z2WutQE", description: "UE5.6 · MetaHuman · Free for the Month assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.6","MetaHuman","FFTM","DaVinci","Premiere","Artlist"] },
-    { id: "IilU7Z9PHSI", title: "SHURA 修羅 - The Endless Duel of the Cursed Samurai | Short Cinematic | MetaHuman | Unreal 5.5", video: "https://www.youtube.com/embed/IilU7Z9PHSI", description: "UE5.5 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.5","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "c6RhKh1_X1c", title: "Shadow of Kowloon | Sleeping Dogs Cinematic Fanmade | Unreal Engine 5.5 | MetaHuman | DLSS4", video: "https://www.youtube.com/embed/c6RhKh1_X1c", description: "UE5.5 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.5","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "MpEKBZS8HbE", title: "The Last Camp | Ghost of Tsushima Fan Film | Unreal Engine 5.4 Cinematic | ShortFilm MetaHuman", video: "https://www.youtube.com/embed/MpEKBZS8HbE", description: "UE5.4 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io · Voice: ElevenLabs", tags:["UE5.4","MetaHuman","FAB","DaVinci","Premiere","Artlist","ElevenLabs"] },
-    { id: "mVRiZqrHSb8", title: "SHOMORUME | UE5.4 Unreal Engine 5.4 short film", video: "https://www.youtube.com/embed/mVRiZqrHSb8", description: "UE5.4 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.4","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "eIXiADQ_W0k", title: "Nguyen Hue defeats Siam | Unreal Engine 5 | MetaHuman | Cinematic Shot", video: "https://www.youtube.com/embed/eIXiADQ_W0k", description: "UE5.3 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.3","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "wsFnDPEPyfA", title: "VENGEANCE : BATMAN FAN MADE CINEMATIC [4K] | UNREAL ENGINE 5.3 | DLSS 3.5", video: "https://www.youtube.com/embed/wsFnDPEPyfA", description: "UE5.3 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io · Voice: ElevenLabs", tags:["UE5.3","MetaHuman","FAB","DLSS3.5","DaVinci","Premiere","Artlist","ElevenLabs"] },
-    { id: "fefQbEbl5C4", title: "Knock Knock Cinematic Short Film | Unreal Engine 5 | Metahuman Animator", video: "https://www.youtube.com/embed/fefQbEbl5C4", description: "UE5.3 · MetaHuman Animator · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io · Voice: ElevenLabs", tags:["UE5.3","MetaHuman","Animator","FAB","DaVinci","Premiere","Artlist","ElevenLabs"] },
+  document.addEventListener('DOMContentLoaded', () => {
+    try {
+      // ===== DATA =====
+      const WORKS = [
+        { id: "VF8g7iAHD9A", title: "Fan-Made PREDATOR Cinematic: IT ALL ENDS | Unreal Engine 5.6 | MetaHuman", video: "https://www.youtube.com/embed/VF8g7iAHD9A", description: "UE5.6 · MetaHuman · BigMediumSmall assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.6","MetaHuman","BMS","DaVinci","Premiere","Artlist"] },
+        { id: "3416z2WutQE", title: "Hidden Alley – Cinematic Short Film in Unreal Engine 5.6", video: "https://www.youtube.com/embed/3416z2WutQE", description: "UE5.6 · MetaHuman · Free for the Month assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.6","MetaHuman","FFTM","DaVinci","Premiere","Artlist"] },
+        { id: "IilU7Z9PHSI", title: "SHURA 修羅 - The Endless Duel of the Cursed Samurai | Short Cinematic | MetaHuman | Unreal 5.5", video: "https://www.youtube.com/embed/IilU7Z9PHSI", description: "UE5.5 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.5","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "c6RhKh1_X1c", title: "Shadow of Kowloon | Sleeping Dogs Cinematic Fanmade | Unreal Engine 5.5 | MetaHuman | DLSS4", video: "https://www.youtube.com/embed/c6RhKh1_X1c", description: "UE5.5 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.5","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "MpEKBZS8HbE", title: "The Last Camp | Ghost of Tsushima Fan Film | Unreal Engine 5.4 Cinematic | ShortFilm MetaHuman", video: "https://www.youtube.com/embed/MpEKBZS8HbE", description: "UE5.4 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io · Voice: ElevenLabs", tags:["UE5.4","MetaHuman","FAB","DaVinci","Premiere","Artlist","ElevenLabs"] },
+        { id: "mVRiZqrHSb8", title: "SHOMORUME | UE5.4 Unreal Engine 5.4 short film", video: "https://www.youtube.com/embed/mVRiZqrHSb8", description: "UE5.4 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.4","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "eIXiADQ_W0k", title: "Nguyen Hue defeats Siam | Unreal Engine 5 | MetaHuman | Cinematic Shot", video: "https://www.youtube.com/embed/eIXiADQ_W0k", description: "UE5.3 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.3","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "wsFnDPEPyfA", title: "VENGEANCE : BATMAN FAN MADE CINEMATIC [4K] | UNREAL ENGINE 5.3 | DLSS 3.5", video: "https://www.youtube.com/embed/wsFnDPEPyfA", description: "UE5.3 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io · Voice: ElevenLabs", tags:["UE5.3","MetaHuman","FAB","DLSS3.5","DaVinci","Premiere","Artlist","ElevenLabs"] },
+        { id: "fefQbEbl5C4", title: "Knock Knock Cinematic Short Film | Unreal Engine 5 | Metahuman Animator", video: "https://www.youtube.com/embed/fefQbEbl5C4", description: "UE5.3 · MetaHuman Animator · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io · Voice: ElevenLabs", tags:["UE5.3","MetaHuman","Animator","FAB","DaVinci","Premiere","Artlist","ElevenLabs"] },
 
-    { id: "8qEiRH5_tuU", title: "UE5 Cinematic Destruction Experience | Chaos Destruction", video: "https://www.youtube.com/embed/8qEiRH5_tuU", description: "UE5.3 · Chaos Destruction · KitBash assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.3","Chaos","KitBash","DaVinci","Premiere","Artlist"] },
-    { id: "7sx9l4469x0", title: "Unreal Engine 5.3 Short Film | Safe House | Metahuman", video: "https://www.youtube.com/embed/7sx9l4469x0", description: "UE5.3 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.3","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "HaQMNafbl20", title: "The Fallen | Cinematic Short Film | Unreal Engine 5 | Metahuman", video: "https://www.youtube.com/embed/HaQMNafbl20", description: "UE5.3 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.3","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "oxKddWFQVJI", title: "Star Wars Jedi: Survivor - Fan Film Cinematic | Unreal Engine 5 | Mission to Minerva", video: "https://www.youtube.com/embed/oxKddWFQVJI", description: "UE5.1 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.1","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "GZGNFTickqU", title: "The Hunt | Unreal Engine 5.1 | Cinematic Short Film Competition | CreepItReal | Metahuman", video: "https://www.youtube.com/embed/GZGNFTickqU", description: "UE5.1 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.1","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "DIajfK2lzQs", title: "Let's Sway | Metahuman | Unreal Engine Cinematic", video: "https://www.youtube.com/embed/DIajfK2lzQs", description: "UE5.1 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.1","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "wH7o4CHG2Eg", title: "The name is Bond | Unreal Engine 5 | Mesh to Metahuman | Cinematic shot", video: "https://www.youtube.com/embed/wH7o4CHG2Eg", description: "UE5.1 · Mesh to MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.1","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "XU8ANSuMHMQ", title: "Echo - The Dragon Slayer | Unreal Engine 5 | Cinematic shot", video: "https://www.youtube.com/embed/XU8ANSuMHMQ", description: "UE5.1 · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.1","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "8qEiRH5_tuU", title: "UE5 Cinematic Destruction Experience | Chaos Destruction", video: "https://www.youtube.com/embed/8qEiRH5_tuU", description: "UE5.3 · Chaos Destruction · KitBash assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.3","Chaos","KitBash","DaVinci","Premiere","Artlist"] },
+        { id: "7sx9l4469x0", title: "Unreal Engine 5.3 Short Film | Safe House | Metahuman", video: "https://www.youtube.com/embed/7sx9l4469x0", description: "UE5.3 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.3","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "HaQMNafbl20", title: "The Fallen | Cinematic Short Film | Unreal Engine 5 | Metahuman", video: "https://www.youtube.com/embed/HaQMNafbl20", description: "UE5.3 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.3","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "oxKddWFQVJI", title: "Star Wars Jedi: Survivor - Fan Film Cinematic | Unreal Engine 5 | Mission to Minerva", video: "https://www.youtube.com/embed/oxKddWFQVJI", description: "UE5.1 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.1","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "GZGNFTickqU", title: "The Hunt | Unreal Engine 5.1 | Cinematic Short Film Competition | CreepItReal | Metahuman", video: "https://www.youtube.com/embed/GZGNFTickqU", description: "UE5.1 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.1","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "DIajfK2lzQs", title: "Let's Sway | Metahuman | Unreal Engine Cinematic", video: "https://www.youtube.com/embed/DIajfK2lzQs", description: "UE5.1 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.1","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "wH7o4CHG2Eg", title: "The name is Bond | Unreal Engine 5 | Mesh to Metahuman | Cinematic shot", video: "https://www.youtube.com/embed/wH7o4CHG2Eg", description: "UE5.1 · Mesh to MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.1","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "XU8ANSuMHMQ", title: "Echo - The Dragon Slayer | Unreal Engine 5 | Cinematic shot", video: "https://www.youtube.com/embed/XU8ANSuMHMQ", description: "UE5.1 · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.1","FAB","DaVinci","Premiere","Artlist"] },
 
-    { id: "EWFUwEPjTwc", title: "Seppuku | Unreal Engine 5 Cinematic Shot | Metahuman", video: "https://www.youtube.com/embed/EWFUwEPjTwc", description: "UE5.0 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.0","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "0Aw4_ZPbgNM", title: "Moon Knight | Summon The Suit | Unreal Engine 5 | Cinematic | Metahuman", video: "https://www.youtube.com/embed/0Aw4_ZPbgNM", description: "UE5.0 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.0","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "hC2dqhIPPlk", title: "VIGILANTE | Unreal Cinematic Shot | Metahuman | UE5", video: "https://www.youtube.com/embed/hC2dqhIPPlk", description: "UE5.0 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.0","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "X1Mk2fBjwCs", title: "The Batman opening scene | Metahuman | Unreal Engine 5", video: "https://www.youtube.com/embed/X1Mk2fBjwCs", description: "UE5.0 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.0","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "EWFUwEPjTwc", title: "Seppuku | Unreal Engine 5 Cinematic Shot | Metahuman", video: "https://www.youtube.com/embed/EWFUwEPjTwc", description: "UE5.0 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.0","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "0Aw4_ZPbgNM", title: "Moon Knight | Summon The Suit | Unreal Engine 5 | Cinematic | Metahuman", video: "https://www.youtube.com/embed/0Aw4_ZPbgNM", description: "UE5.0 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.0","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "hC2dqhIPPlk", title: "VIGILANTE | Unreal Cinematic Shot | Metahuman | UE5", video: "https://www.youtube.com/embed/hC2dqhIPPlk", description: "UE5.0 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.0","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "X1Mk2fBjwCs", title: "The Batman opening scene | Metahuman | Unreal Engine 5", video: "https://www.youtube.com/embed/X1Mk2fBjwCs", description: "UE5.0 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.0","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
 
-    { id: "FTtA5Y1VmeA", title: "The King's Man Remake | Unreal Engine 5 | Metahuman | Fan made", video: "https://www.youtube.com/embed/FTtA5Y1VmeA", description: "UE4.25 → UE5.0 beta · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.25","UE5.0beta","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "4sLZDdv6u_E", title: "Detective Cinematic Shot | Unreal Engine 4.27 | Metahuman", video: "https://www.youtube.com/embed/4sLZDdv6u_E", description: "UE4.27 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.27","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "BOdouEN5WDc", title: "Wanted - Car Chasing Scene Remake | Unreal Engine 5 | Metahuman", video: "https://www.youtube.com/embed/BOdouEN5WDc", description: "UE4.25 → UE5.0 beta · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.25","UE5.0beta","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "N6e5bH5M09M", title: "Wind Walker Echo | Unreal Engine 5 | How to defend when there is no advantage | Short Film", video: "https://www.youtube.com/embed/N6e5bH5M09M", description: "UE4.25 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.25","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "6dtC70DOqN8", title: "The return of Inquisitor | Unreal Engine 5 | Metahuman | Star Wars Fan Film Contest", video: "https://www.youtube.com/embed/6dtC70DOqN8", description: "UE5.0 beta · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.0beta","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "0dRLsfkvI7A", title: "Metahuman | Unreal Engine 5 Cinematic | Oanh Cyberpunk", video: "https://www.youtube.com/embed/0dRLsfkvI7A", description: "UE5.0 beta · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.0beta","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "PFXi6_6e1WE", title: "WAR | Short Cinematic – Unreal Engine 4 | RTX – DLSS", video: "https://www.youtube.com/embed/PFXi6_6e1WE", description: "UE4.25 beta · MetaHuman (early/demo) · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.25beta","MetaHuman","FAB","DaVinci","Premiere","Artlist","RTX","DLSS"] },
-    { id: "xN6g4TpfJvg", title: "Metahuman – Samurai | Short Film AWAKEN | Unreal Engine 4", video: "https://www.youtube.com/embed/xN6g4TpfJvg", description: "UE4.25 beta · MetaHuman (demo) · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.25beta","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
-    { id: "RDCZpiwQr8E", title: "Vader Episode 2 – Remake on Unreal Engine", video: "https://www.youtube.com/embed/RDCZpiwQr8E", description: "UE4.23 · Mixamo · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.23","Mixamo","FAB","DaVinci","Premiere","Artlist"] }
-  ];
+        { id: "FTtA5Y1VmeA", title: "The King's Man Remake | Unreal Engine 5 | Metahuman | Fan made", video: "https://www.youtube.com/embed/FTtA5Y1VmeA", description: "UE4.25 → UE5.0 beta · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.25","UE5.0beta","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "4sLZDdv6u_E", title: "Detective Cinematic Shot | Unreal Engine 4.27 | Metahuman", video: "https://www.youtube.com/embed/4sLZDdv6u_E", description: "UE4.27 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.27","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "BOdouEN5WDc", title: "Wanted - Car Chasing Scene Remake | Unreal Engine 5 | Metahuman", video: "https://www.youtube.com/embed/BOdouEN5WDc", description: "UE4.25 → UE5.0 beta · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.25","UE5.0beta","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "N6e5bH5M09M", title: "Wind Walker Echo | Unreal Engine 5 | How to defend when there is no advantage | Short Film", video: "https://www.youtube.com/embed/N6e5bH5M09M", description: "UE4.25 · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.25","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "6dtC70DOqN8", title: "The return of Inquisitor | Unreal Engine 5 | Metahuman | Star Wars Fan Film Contest", video: "https://www.youtube.com/embed/6dtC70DOqN8", description: "UE5.0 beta · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.0beta","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "0dRLsfkvI7A", title: "Metahuman | Unreal Engine 5 Cinematic | Oanh Cyberpunk", video: "https://www.youtube.com/embed/0dRLsfkvI7A", description: "UE5.0 beta · MetaHuman · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE5.0beta","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "PFXi6_6e1WE", title: "WAR | Short Cinematic – Unreal Engine 4 | RTX – DLSS", video: "https://www.youtube.com/embed/PFXi6_6e1WE", description: "UE4.25 beta · MetaHuman (early/demo) · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.25beta","MetaHuman","FAB","DaVinci","Premiere","Artlist","RTX","DLSS"] },
+        { id: "xN6g4TpfJvg", title: "Metahuman – Samurai | Short Film AWAKEN | Unreal Engine 4", video: "https://www.youtube.com/embed/xN6g4TpfJvg", description: "UE4.25 beta · MetaHuman (demo) · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.25beta","MetaHuman","FAB","DaVinci","Premiere","Artlist"] },
+        { id: "RDCZpiwQr8E", title: "Vader Episode 2 – Remake on Unreal Engine", video: "https://www.youtube.com/embed/RDCZpiwQr8E", description: "UE4.23 · Mixamo · FAB assets · Grade: DaVinci · Edit: Premiere · Audio: Artlist.io", tags:["UE4.23","Mixamo","FAB","DaVinci","Premiere","Artlist"] }
+      ];
 
-  // ===== Helpers: extract Unreal version tag, sort new->old =====
-  function getVersionTag(w){
-    if(!w.tags) return null;
-    const cand = w.tags.find(t=>/^UE\d/.test(t));
-    return cand || null;
-  }
-  function versionKey(v){
-    if(!v) return {maj:0,min:0,beta:1,raw:''};
-    const m = v.match(/^UE(\d)(?:\.(\d+))?(beta)?/i);
-    const maj = m? parseInt(m[1],10):0;
-    const min = m&&m[2]? parseInt(m[2],10):0;
-    const beta = m&&m[3]? 1:0;
-    return {maj,min,beta,raw:v};
-  }
-  function compareVersionDesc(a,b){
-    const A = versionKey(a), B = versionKey(b);
-    if(A.maj!==B.maj) return B.maj-A.maj;
-    if(A.min!==B.min) return B.min-A.min;
-    if(A.beta!==B.beta) return A.beta-B.beta;
-    return 0;
-  }
+      // Helpers
+      function getVersionTag(w){ if(!w.tags) return null; const cand = w.tags.find(t=>/^UE\d/.test(t)); return cand || null; }
+      function versionKey(v){ if(!v) return {maj:0,min:0,beta:1,raw:''}; const m = v.match(/^UE(\d)(?:\.(\d+))?(beta)?/i); const maj=m?+m[1]:0; const min=m&&m[2]?+m[2]:0; const beta=m&&m[3]?1:0; return {maj,min,beta}; }
+      function compareVersionDesc(a,b){ const A=versionKey(a), B=versionKey(b); if(A.maj!==B.maj) return B.maj-A.maj; if(A.min!==B.min) return B.min-A.min; if(A.beta!==B.beta) return A.beta-B.beta; return 0; }
 
-  // ===== Build filter list (new -> old) =====
-  const versions = Array.from(new Set(WORKS.map(getVersionTag).filter(Boolean))).sort(compareVersionDesc);
-  let activeVersion = null; // null = All
+      // Filters
+      const versions = Array.from(new Set(WORKS.map(getVersionTag).filter(Boolean))).sort(compareVersionDesc);
+      let activeVersion = null;
+      const filtersEl = document.getElementById('filters');
+      function chip(text, on, cb){ const b=document.createElement('button'); b.textContent=text; b.className=`px-3 py-1.5 rounded-full border ${on?'bg-acc/20 border-acc/40':'bg-white/5 border-white/10 hover:bg-white/10'} text-sm`; b.addEventListener('click', cb); return b; }
+      function renderVersionFilters(){
+        filtersEl.innerHTML=''; const wrap=document.createElement('div'); wrap.className='flex flex-wrap gap-2 items-center';
+        const label=document.createElement('span'); label.textContent='Unreal Version:'; label.className='text-white/60 text-sm mr-1'; wrap.appendChild(label);
+        wrap.appendChild(chip('All', activeVersion===null, ()=>{activeVersion=null; renderGrid(); renderVersionFilters();}));
+        versions.forEach(v=> wrap.appendChild(chip(v, activeVersion===v, ()=>{activeVersion=(activeVersion===v?null:v); renderGrid(); renderVersionFilters();})));
+        const hasOthers = WORKS.some(w=>!getVersionTag(w));
+        if(hasOthers){ wrap.appendChild(chip('Others', activeVersion==='others', ()=>{activeVersion=(activeVersion==='others'?null:'others'); renderGrid(); renderVersionFilters();})); }
+        filtersEl.appendChild(wrap);
+      }
 
-  const filtersEl = document.getElementById('filters');
-  function chip(text, on, cb){
-    const b = document.createElement('button');
-    b.textContent = text;
-    b.className = `px-3 py-1.5 rounded-full border ${on? 'bg-acc/20 border-acc/40' : 'bg-white/5 border-white/10 hover:bg-white/10'} text-sm`;
-    b.addEventListener('click', cb); return b;
-  }
-  function renderVersionFilters(){
-    filtersEl.innerHTML = '';
-    const wrap = document.createElement('div');
-    wrap.className = 'flex flex-wrap gap-2 items-center';
-    const label = document.createElement('span'); label.textContent = 'Unreal Version:'; label.className = 'text-white/60 text-sm mr-1'; wrap.appendChild(label);
-    wrap.appendChild(chip('All', activeVersion===null, ()=>{activeVersion=null; renderGrid(); renderVersionFilters();}));
-    versions.forEach(v=> wrap.appendChild(chip(v, activeVersion===v, ()=>{activeVersion=(activeVersion===v?null:v); renderGrid(); renderVersionFilters();})));
-    const hasOthers = WORKS.some(w=>!getVersionTag(w));
-    if(hasOthers){
-      wrap.appendChild(chip('Others', activeVersion==='others', ()=>{activeVersion=(activeVersion==='others'?null:'others'); renderGrid(); renderVersionFilters();}));
+      // Grid
+      const grid = document.getElementById('grid');
+      const search = document.getElementById('search');
+      function matches(w){ const q=search.value.toLowerCase().trim(); const okSearch=!q||w.title.toLowerCase().includes(q); const vt=getVersionTag(w); const okVersion = activeVersion===null || (activeVersion==='others'? !vt : vt===activeVersion); return okSearch && okVersion; }
+      function buildThumbs(id){ return [`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,`https://i.ytimg.com/vi_webp/${id}/maxresdefault.webp`,`https://i.ytimg.com/vi/${id}/sddefault.jpg`,`https://i.ytimg.com/vi/${id}/hqdefault.jpg`,`https://i.ytimg.com/vi/${id}/mqdefault.jpg`,`https://i.ytimg.com/vi/${id}/0.jpg`,`https://img.youtube.com/vi/${id}/maxresdefault.jpg`,`https://img.youtube.com/vi/${id}/sddefault.jpg`,`https://img.youtube.com/vi/${id}/hqdefault.jpg`,`https://img.youtube.com/vi/${id}/mqdefault.jpg`,`https://img.youtube.com/vi/${id}/0.jpg`]; }
+      function idFromEmbed(url){ try{ return new URL(url).pathname.split('/').pop(); }catch{ return null; } }
+
+      function card(w){
+        const el=document.createElement('article'); el.className='rounded-2xl overflow-hidden bg-card border border-white/10 hover:border-white/20 transition shadow-soft flex flex-col';
+        const id=idFromEmbed(w.video); const thumbs=id?buildThumbs(id):['https://via.placeholder.com/1200x675?text=No+Thumbnail'];
+        const figure=document.createElement('div'); figure.className='relative';
+        const img=document.createElement('img'); img.alt=w.title; img.loading='lazy'; img.referrerPolicy='no-referrer'; img.className='w-full aspect-video object-cover bg-black/30';
+        let i=0; const tryNext=()=>{ i++; if(i<thumbs.length){ img.src=thumbs[i]; } else { renderFallback(); } };
+        const renderFallback=()=>{ img.remove(); const fb=document.createElement('div'); fb.className='w-full aspect-video bg-gradient-to-br from-black/60 to-black/30 flex items-end'; fb.innerHTML=`<div class="p-3 text-xs text-white/70">${w.title}</div>`; figure.appendChild(fb); };
+        img.onerror=tryNext; img.onload=()=>{ if(img.naturalWidth<=200 || img.naturalHeight<=120){ tryNext(); } }; img.src=thumbs[i];
+        const v=getVersionTag(w); if(v){ const badge=document.createElement('div'); badge.textContent=v; badge.className='absolute top-2 left-2 px-2 py-1 rounded bg-black/60 text-xs tracking-wide'; figure.appendChild(badge); }
+        figure.appendChild(img);
+
+        const body=document.createElement('div'); body.className='p-4 flex-1 flex flex-col gap-2';
+        const title=document.createElement('h3'); title.className='font-semibold text-lg leading-tight line-clamp-2'; title.textContent=w.title;
+        const desc=document.createElement('p'); desc.className='text-white/70 text-sm line-clamp-2'; desc.textContent=w.description||'';
+        const btn=document.createElement('button'); btn.className='mt-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 w-max'; btn.textContent='Open details';
+        btn.addEventListener('click', ()=>openModal(w)); img.addEventListener('click', ()=>openModal(w));
+        body.appendChild(title); if(desc.textContent) body.appendChild(desc); body.appendChild(btn);
+
+        el.appendChild(figure); el.appendChild(body); return el;
+      }
+
+      function renderGrid(){ grid.innerHTML=''; WORKS.filter(matches).forEach(w=>grid.appendChild(card(w))); if(grid.children.length===0){ const empty=document.createElement('div'); empty.className='col-span-full text-center text-white/60 py-20'; empty.textContent='No matching works.'; grid.appendChild(empty);} }
+
+      // Modal
+      const modal=document.getElementById('modal'); const modalBody=document.getElementById('modalBody'); const modalTitle=document.getElementById('modalTitle'); const modalMeta=document.getElementById('modalMeta'); const modalDesc=document.getElementById('modalDesc');
+      document.getElementById('modalClose').addEventListener('click', closeModal);
+      modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
+      function openModal(w){ modalTitle.textContent=w.title; modalMeta.textContent=[getVersionTag(w)].filter(Boolean).join(' · '); modalDesc.textContent=w.description||''; modalBody.innerHTML=''; if(w.video){ const iframe=document.createElement('iframe'); iframe.src=w.video; iframe.allow='accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'; iframe.allowFullscreen=true; iframe.className='w-full h-full'; modalBody.appendChild(iframe);} modal.classList.remove('hidden'); modal.classList.add('flex'); }
+      function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); modalBody.innerHTML=''; }
+
+      // Init
+      renderVersionFilters();
+      renderGrid();
+      document.getElementById('resetBtn').addEventListener('click', ()=>{ document.getElementById('search').value=''; activeVersion=null; renderVersionFilters(); renderGrid(); });
+      document.getElementById('search').addEventListener('input', renderGrid);
+      document.getElementById('year').textContent = new Date().getFullYear();
+    } catch(err) {
+      const e = document.getElementById('err');
+      e.textContent = 'Runtime error: ' + (err && err.message ? err.message : err);
+      e.classList.remove('hidden');
+      console.error(err);
     }
-    filtersEl.appendChild(wrap);
-  }
-
-  // ===== Grid =====
-  const grid = document.getElementById('grid');
-  const search = document.getElementById('search');
-  const resetBtn = document.getElementById('resetBtn');
-
-  function matches(w){
-    const q = search.value.toLowerCase().trim();
-    const okSearch = !q || w.title.toLowerCase().includes(q);
-    const vt = getVersionTag(w);
-    const okVersion = activeVersion===null || (activeVersion==='others'? !vt : vt===activeVersion);
-    return okSearch && okVersion;
-  }
-
-  function buildThumbs(id){
-    return [
-      `https://img.youtube.com/vi/${id}/maxresdefault.jpg`,
-      `https://img.youtube.com/vi/${id}/sddefault.jpg`,
-      `https://img.youtube.com/vi/${id}/hqdefault.jpg`,
-      `https://img.youtube.com/vi/${id}/mqdefault.jpg`
-    ];
-  }
-  function idFromEmbed(url){ try{ return new URL(url).pathname.split('/').pop(); }catch{ return null; } }
-
-  function card(w){
-    const el = document.createElement('article');
-    el.className = 'rounded-2xl overflow-hidden bg-card border border-white/10 hover:border-white/20 transition shadow-soft flex flex-col';
-
-    const id = idFromEmbed(w.video);
-    const thumbs = id? buildThumbs(id) : ['https://via.placeholder.com/1200x675?text=No+Thumbnail'];
-
-    const figure = document.createElement('div');
-    figure.className = 'relative';
-
-    const img = document.createElement('img');
-    img.alt = w.title; img.loading = 'lazy'; img.className = 'w-full aspect-video object-cover bg-black/30';
-    let i=0; img.src = thumbs[i]; img.onerror = ()=>{ i++; if(i<thumbs.length) img.src=thumbs[i]; };
-
-    // Version badge (top-left)
-    const v = getVersionTag(w);
-    if(v){
-      const badge = document.createElement('div');
-      badge.textContent = v;
-      badge.className = 'absolute top-2 left-2 px-2 py-1 rounded bg-black/60 text-xs tracking-wide';
-      figure.appendChild(badge);
-    }
-
-    figure.appendChild(img);
-
-    const body = document.createElement('div'); body.className='p-4 flex-1 flex flex-col gap-2';
-    const title = document.createElement('h3'); title.className='font-semibold text-lg leading-tight line-clamp-2'; title.textContent=w.title;
-    const desc = document.createElement('p'); desc.className='text-white/70 text-sm line-clamp-2'; desc.textContent = w.description || '';
-    const btn = document.createElement('button'); btn.className='mt-2 px-3 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 w-max'; btn.textContent='Open details';
-    btn.addEventListener('click', ()=> openModal(w));
-    img.addEventListener('click', ()=> openModal(w));
-
-    body.appendChild(title);
-    if(desc.textContent) body.appendChild(desc);
-    body.appendChild(btn);
-
-    el.appendChild(figure);
-    el.appendChild(body);
-    return el;
-  }
-
-  function renderGrid(){
-    grid.innerHTML = '';
-    WORKS.filter(matches).forEach(w=> grid.appendChild(card(w)));
-    if(grid.children.length===0){
-      const empty = document.createElement('div');
-      empty.className='col-span-full text-center text-white/60 py-20';
-      empty.textContent='No matching works.';
-      grid.appendChild(empty);
-    }
-  }
-
-  // Modal logic
-  const modal = document.getElementById('modal');
-  const modalBody = document.getElementById('modalBody');
-  const modalTitle = document.getElementById('modalTitle');
-  const modalMeta = document.getElementById('modalMeta');
-  const modalDesc = document.getElementById('modalDesc');
-  document.getElementById('modalClose').addEventListener('click', closeModal);
-  modal.addEventListener('click', (e)=>{ if(e.target===modal) closeModal(); });
-
-  function openModal(w){
-    modalTitle.textContent = w.title;
-    modalMeta.textContent = [getVersionTag(w)].filter(Boolean).join(' · ');
-    modalDesc.textContent = w.description || '';
-    modalBody.innerHTML = '';
-    if(w.video){
-      const iframe = document.createElement('iframe');
-      iframe.src = w.video; // no autoplay
-      iframe.allow = 'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-      iframe.allowFullscreen = true; iframe.className='w-full h-full';
-      modalBody.appendChild(iframe);
-    }
-    modal.classList.remove('hidden'); modal.classList.add('flex');
-  }
-  function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); modalBody.innerHTML=''; }
-
-  // Init
-  renderVersionFilters();
-  renderGrid();
-  search.addEventListener('input', renderGrid);
-  document.getElementById('resetBtn').addEventListener('click', ()=>{ search.value=''; activeVersion=null; renderVersionFilters(); renderGrid(); });
-  document.getElementById('year').textContent = new Date().getFullYear();
+  });
   </script>
 </body>
 </html>
